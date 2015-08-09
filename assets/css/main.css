@@ -773,10 +773,11 @@
 		color: #777777;
 	}
 
-	strong, b, h1, h2, h3, h4, h5, h6 {
+	strong, b, h1, h2, h3, h4 {
 		font-weight: 400;
 		color: #363636;
 	}
+	h5 { color: #363636; }
 
 	blockquote {
 		border-left: solid 0.5em #ddd;
@@ -821,12 +822,12 @@
 		width: 100%;
 	}
 
-		table.default tbody tr {
-			border-bottom: solid 1px #f4f4f4;
+		table.default thead {
+			border-bottom: solid 2px #f4f4f4;
 		}
 
-		table.default td {
-			padding: 0.5em 1em 0.5em 1em;
+		table.default tbody tr {
+			border-bottom: solid 1px #f4f4f4;
 		}
 
 		table.default th {
@@ -835,8 +836,35 @@
 			padding: 0.5em 1em 0.5em 1em;
 		}
 
-		table.default thead {
+		table.default td {
+			padding: 0.5em 1em 0.5em 1em;
+		}
+
+
+		table.versions {
+			margin-top: 1em;
+			margin-bottom: 1em;
+			line-height: 1.2em;
+		}
+
+		table.versions thead {
 			border-bottom: solid 2px #f4f4f4;
+		}
+
+		table.versions tbody tr {
+			border-bottom: solid 1px #f4f4f4;
+		}
+
+		table.versions th {
+			text-align: left;
+			font-weight: 400;
+			padding: 0 1em 0 1em;
+			font-size: 0.8em;
+		}
+
+		table.versions td {
+			padding: 0 1em 0 1em;
+			font-size: 0.8em;
 		}
 
 /* Form */
@@ -1017,6 +1045,31 @@
 			padding-left: 0.5em;
 		}
 
+
+	ul.frameworks {
+		list-style: none;
+		padding-left: 0.5em;
+		margin-bottom: 1em;
+	}
+
+		ul.frameworks li {
+			/* position: relative; */
+			display: inline-block;
+
+			padding-left: 0.2em;
+			padding-right: 1em;
+			font-size: 0.8em;
+			line-height: 1.2em;
+		}
+
+		ul.frameworks li:before {
+			content:"•";
+			font-size:0.75em;
+			vertical-align:top; 
+			padding-right:1em;
+		}
+
+
 	ul.actions li {
 		display: inline-block;
 		margin-left: 0.5em;
@@ -1025,6 +1078,7 @@
 		ul.actions li:first-child {
 			margin-left: 0;
 		}
+
 
 	ol.default {
 		list-style: decimal;
@@ -1288,6 +1342,10 @@
 				overflow-y: scroll;
 				background-attachment: fixed;
 				font-size: 14pt;
+				/* line-height: 1.75em; */
+			}
+
+			p, h1, h2, h3, h4, h5, h6 {
 				line-height: 1.75em;
 			}
 
@@ -1306,8 +1364,13 @@
 				letter-spacing: -0.015em;
 			}
 
-			h3, h4, h5, h6 {
+			h3 {
 				font-size: 1.25em;
+				letter-spacing: -0.015em;
+			}
+
+			h4, h5, h6 {
+				font-size: 1.0em;
 				letter-spacing: -0.015em;
 			}
 
@@ -1556,6 +1619,7 @@
 						/* top: 52.5%; */
 						top: 40%;
 						font-size: 1.5em;
+						line-height: 1.2em;
 						letter-spacing: -0.015em;
 						margin-top: 0;
 					}
@@ -1585,6 +1649,10 @@
 
 			body, input, textarea, select {
 				font-size: 11pt;
+				/* line-height: 1.75em; */
+			}
+
+			p, input, textarea, select, h1, h2, h3, h4, h5, h6 {
 				line-height: 1.75em;
 			}
 
@@ -1593,8 +1661,13 @@
 				letter-spacing: -0.025em;
 			}
 
-			h3, h4, h5, h6 {
+			h3 {
 				font-size: 1.25em;
+				letter-spacing: -0.025em;
+			}
+
+			h4, h5, h6 {
+				font-size: 1.0em;
 				letter-spacing: -0.025em;
 			}
 
