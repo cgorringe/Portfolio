@@ -26,8 +26,6 @@
 
 						<!-- Thanks -->
 							<article id="thanks" class="panel">
-								<header><h3>Thanks!</h3></header>
-								<p>
 <?php
 
 // TODO: this script is almost done.  What's left to do:
@@ -41,70 +39,112 @@
 // http://webdesignpub.com/html-contact-form-captcha/
 // http://myphpform.com/validating-url-email.php
 
-function check_input($data)
+function get_param($param)
 {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
+	$data = '';
+	if (isset($_POST[$param])) {
+		$data = $_POST[$param];
+		$data = trim($data);
+		$data = stripslashes($data);
+		$data = htmlspecialchars($data);
+	}
+	return $data;
 }
 
-function check_email($data)
+function check_email($addr)
 {
-	// NOT Tested!
-	if (preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $data)) {  // NOT a good match, needs to allow periods!
-		return $data;
+	// if (preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $addr)) {  // NOT a good match, needs to allow periods!
+
+	// Got these regex from:
+	// http://stackoverflow.com/questions/201323/using-a-regular-expression-to-validate-an-email-address/14075810#14075810
+	// ([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|"([]!#-[^-~ \t]|(\\[\t -~]))+")@[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?(\.[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?)+
+
+	// This is better?
+	// if (preg_match("/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/", $addr)) {
+
+	// This should allow periods and is most forgiving
+	if (preg_match("/^\S+@\S+\.\S+$/", $addr)) {
+		return $addr;
 	}
 	return '';
 }
 
-// Check 'answer' for 6x9 is 54 or 42
+$err_msg = '';
+$ok_msg = '';
 
-$answer  = trim( $_POST['answer'] );
-if (($answer == '54') || ($answer == '42')) {
+$answer = get_param('answer');
+if (($answer === '54') || ($answer === '42')) {
 	// it's a human!
 
-	if ($answer == '42') {
-		echo '<h4>You have correctly enterered the Ultimate Answer.</h4><br>';
+	if ($answer === '42') {
+		$ok_msg .= '<strong><em>You have correctly entered the Ultimate Answer!</em></strong><br>';
 	}
 
-	$name    = check_input( $_POST['name'] );
-	$email   = check_email( $_POST['email'] );
-	$subject = check_input( $_POST['subject'] );
-	$message = check_input( $_POST['message'] );
+	$name = get_param('name');
+	if ($name === '') {
+		$err_msg .= 'Please include your name.<br> ';
+	}
 
-	$header  = "from: $name <$email>";  // TODO: prevent email injection
-	$sendtext = 
+	$email = check_email( get_param('email') );
+	if ($email === '') {
+		$err_msg .= 'Please enter a valid email address.<br> ';
+	}
+
+	$subject = get_param('subject');
+	if ($subject === '') {
+		$err_msg .= 'Please include a subject.<br> ';
+	}
+
+	$message = get_param('message');
+	if ($message === '') {
+		$err_msg .= 'Please include a message.<br> ';
+	}
+
+  if ($err_msg === '') {
+  	// only email a message if there are no errors
+
+		$header  = "from: $name <$email>";
+		$sendtext = 
 "Name: $name
 Email: $email
 Subject: $subject
 Answer: $answer
 
-Message:
-
 $message
 ";
 
-	$to = 'carl@gorringe.org';
-	$send_contact = mail($to, "[contact form] $subject", $sendtext, $header);
+		$to = 'carl@gorringe.org';
+		$send_contact = mail($to, "[contact form] $subject", $sendtext, $header);
+	
+		if ($send_contact) {
+			$ok_msg .= "<h4>The following was sent.  I'll try to get back to you soon!</h4><br><blockquote class='like-pre'>$sendtext</blockquote>";
+		}
+		else {
+			$err_msg .= 'There was an error sending the message.  Please try again! <br> ';
+		}
+	}
 
-	if ($send_contact) {
-		echo "The following was sent.  I'll try to get back to you soon!<br><br><blockquote><pre>$sendtext</pre></blockquote>";
-	}
-	else {
-		echo "There was an error sending the message.  Please try again!";
-	}
 
 	// Redirect to thank you page?
 	// header('Location:thank_you.html');
 	// header('Location:http://www.domain.com/thank_you.html');
 }
 else {
-	echo 'We were unable to send your message.  Please check to make sure that what you entered in the form was correct and try again!';
+	$err_msg .= "Please answer the last question so we know that you're human!<br> ";
+}
+
+if ($err_msg === '') {
+	// no errors
+	echo "<header><h2>Thanks!</h2></header>";
+	echo "<p>$ok_msg</p>";
+}
+else {
+	// there were errors
+	echo "<header><h3>Well that didn't work...</h3></header>";
+	echo "<p>$err_msg</p>";
 }
 
 ?>
-								</p>
 							</article>
 					</div>
 

@@ -786,6 +786,14 @@
 		margin-bottom: 0.5em;
 	}
 
+	.like-pre {
+		font-style: normal;
+		display: block;
+    unicode-bidi: embed;
+    font-family: monospace;
+    white-space: pre;
+	}
+
 	em, i {
 		font-style: italic;
 	}
