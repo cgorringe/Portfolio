@@ -16,7 +16,7 @@
 
 				<!-- Nav -->
 					<nav id="nav">
-						<a href="./#me" class="icon fa-home active"><span>Home</span></a>
+						<a href="./#me" class="icon fa-home"><span>Home</span></a>
 						<a href="./#portfolio" class="icon fa-folder"><span>Portfolio</span></a>
 						<a href="./#contact" class="icon fa-envelope"><span>Contact</span></a>
 					</nav>
@@ -29,6 +29,11 @@
 								<header><h3>Thanks!</h3></header>
 								<p>
 <?php
+
+// TODO: this script is almost done.  What's left to do:
+//  + redo email regex, and don't send email if fails
+//  + CSS for <pre> tag
+
 
 // Input: name, email, subject, message, answer
 
@@ -57,7 +62,11 @@ function check_email($data)
 
 $answer  = trim( $_POST['answer'] );
 if (($answer == '54') || ($answer == '42')) {
-	// good
+	// it's a human!
+
+	if ($answer == '42') {
+		echo '<h4>You have correctly enterered the Ultimate Answer.</h4><br>';
+	}
 
 	$name    = check_input( $_POST['name'] );
 	$email   = check_email( $_POST['email'] );
@@ -65,35 +74,28 @@ if (($answer == '54') || ($answer == '42')) {
 	$message = check_input( $_POST['message'] );
 
 	$header  = "from: $name <$email>";  // TODO: prevent email injection
-	$sendtext = "
-	Name: $name
-	Email: $email
-	Subject: $subject
-	Answer: $answer
+	$sendtext = 
+"Name: $name
+Email: $email
+Subject: $subject
+Answer: $answer
 
-	Message:
-	$message
-	";
+Message:
+
+$message
+";
 
 	$to = 'carl@gorringe.org';
-	$send_contact = mail($to, $subject, $message, $header);
+	$send_contact = mail($to, "[contact form] $subject", $sendtext, $header);
 
 	if ($send_contact) {
-		echo "The following was sent.  I'll try to get back to you soon!<br><blockquote>$sendtext</blockquote>";
-	}
-
-	/*
-	// Check, if message sent to your email 
-	// display message "We've recived your information"
-	if($send_contact){
-	  echo "We've recived your contact information";
+		echo "The following was sent.  I'll try to get back to you soon!<br><br><blockquote><pre>$sendtext</pre></blockquote>";
 	}
 	else {
-	  echo "ERROR";
+		echo "There was an error sending the message.  Please try again!";
 	}
-	//*/
 
-	// Redirect to thank you page
+	// Redirect to thank you page?
 	// header('Location:thank_you.html');
 	// header('Location:http://www.domain.com/thank_you.html');
 }
