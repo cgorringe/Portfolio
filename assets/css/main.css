@@ -318,6 +318,7 @@
 
 		.row > * {
 			padding: 25px 0 0 25px;
+			/* padding: 0 0 25px 25px; */
 		}
 
 		.row {
@@ -533,6 +534,7 @@
 
 		.row > * {
 			padding: 15px 0 0 15px;
+			/* padding: 0 0 15px 15px; */
 		}
 
 		.row {
@@ -747,7 +749,7 @@
 /* Basic */
 
 	body {
-		background-image: url("images/overlay.png"), url("images/bg.jpg");
+		background-image: url("images/overlay.png");
 		background-repeat: repeat, no-repeat;
 		background-size: auto, 100% 100%;
 		font-family: 'Source Sans Pro', sans-serif;
@@ -786,14 +788,6 @@
 		margin-bottom: 0.5em;
 	}
 
-	.like-pre {
-		font-style: normal;
-		display: block;
-    unicode-bidi: embed;
-    font-family: monospace;
-    white-space: pre;
-	}
-
 	em, i {
 		font-style: italic;
 	}
@@ -824,6 +818,130 @@
 	p, ul, ol, dl, table, form {
 		margin-bottom: 2em;
 	}
+
+/* New Stuff */
+
+	/* regular links */
+	a.link {
+		color: #555;
+		-moz-transition: color .25s ease-in-out;
+		-webkit-transition: color .25s ease-in-out;
+		-ms-transition: color .25s ease-in-out;
+		transition: color .25s ease-in-out;
+		/* text-decoration: underline dotted; !important; */ /* not working */
+	}
+		a.link:hover {
+			color: black;
+			/* text-decoration: underline solid; */ /* not working */
+		}
+
+	.like-pre {
+		font-style: normal;
+		display: block;
+    unicode-bidi: embed;
+    font-family: monospace;
+    white-space: pre;
+	}
+
+	/* screenshots */
+
+	iframe.screenshots {
+		overflow-x: scroll !important; 
+		overflow-y: hidden !important; 
+		overflow: hidden; 
+		height: 340px; 
+		width: 100%;
+		border: none;
+	}
+
+	div.iPhone5S.portrait {
+		position:relative;
+		width: 215px;
+		height: 455px;
+		margin-top: 1em;
+		margin-bottom: 1em;
+		display: block;
+		outline: 0;
+	}
+	div.iPhone5S.portrait > * {
+		position:absolute; 
+		left:18px; 
+		top:66px;
+		width:181px;
+		height:322px;
+		/* background-color: #555; */
+	}
+	div.iPhone5S.portrait.white {
+		background-image: url("images/iPhone5s_wp_215x455.png");
+	}
+	div.iPhone5S.portrait.black {
+		background-image: url("images/iPhone5s_bp_215x455.png");
+	}
+	div.iPhone5S.portrait.statusbar > * {
+		padding-top: 13px;
+	}
+
+	div.iPhone1.portrait {
+		background-image: url("images/iPhone1_190x362.png");
+		position:relative;
+		width: 190px;
+		height: 362px;
+		margin-top: 1em;
+		margin-bottom: 1em;
+		display: block;
+		outline: 0;
+	}
+	div.iPhone1.portrait > * {
+		position:absolute; 
+		left:15px; 
+		top:73px;
+		width:160px;
+		height:230px;
+		background-color: #555;
+	}
+
+	div.iPad.landscape {
+		position:relative;
+		width: 360px;
+		height: 244px;
+		margin-top: 1em;
+		margin-bottom: 1em;
+		display: block;
+		outline: 0;
+	}
+	div.iPad.landscape > * {
+		position:absolute; 
+		left:38px; /* 37 or 38 iframe */
+		top:20px;  /* 21 or 19 iframe */
+		width:285px; /* 286 or 285 iframe */
+		height:209px;
+	}
+	div.iPad.landscape.white {
+		background-image: url("images/iPad_wl_360x244.png");
+	}
+	div.iPad.landscape.black {
+		background-image: url("images/iPad_bl_360x244.png");
+	}
+
+	div.monitor {
+		background-image: url("images/monitor_380x305.png");
+		position:relative;
+		width: 380px;
+		height: 305px;
+		margin-top: 1em;
+		margin-bottom: 1em;
+		display: block;
+		outline: 0;
+	}
+	div.monitor > * {
+		position:absolute; 
+		left:14px;
+		top:13px;
+		width:352px;
+		height:216px;
+		background-color: #eee;
+	}
+
 
 /* Table */
 
@@ -935,7 +1053,8 @@
 /* Section/Article */
 
 	section, article {
-		margin-bottom: 3em;
+		/* margin-bottom: 3em; */
+		margin-bottom: 1em;
 	}
 
 		section > :last-child, section:last-child, article > :last-child, article:last-child {
@@ -1535,20 +1654,6 @@
 				background: #ffffff;
 				box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.25);
 			}
-
-			/* regular links */
-			a.link {
-				color: #555;
-				-moz-transition: color .25s ease-in-out;
-				-webkit-transition: color .25s ease-in-out;
-				-ms-transition: color .25s ease-in-out;
-				transition: color .25s ease-in-out;
-				/* text-decoration: underline dotted; !important; */ /* not working */
-			}
-				a.link:hover {
-					color: black;
-					/* text-decoration: underline solid; */ /* not working */
-				}
 
 			.panel {
 				padding: 3.5em 2.5em 3.5em 2.5em;

@@ -6,7 +6,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/css/looper.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
@@ -27,17 +26,6 @@
 						<!-- Thanks -->
 							<article id="thanks" class="panel">
 <?php
-
-// TODO: this script is almost done.  What's left to do:
-//  + redo email regex, and don't send email if fails
-//  + CSS for <pre> tag
-
-
-// Input: name, email, subject, message, answer
-
-// TODO: we need to filter all user input here!
-// http://webdesignpub.com/html-contact-form-captcha/
-// http://myphpform.com/validating-url-email.php
 
 function get_param($param)
 {
@@ -68,6 +56,8 @@ function check_email($addr)
 	}
 	return '';
 }
+
+// Input form: name, email, subject, message, answer
 
 $err_msg = '';
 $ok_msg = '';
@@ -162,8 +152,6 @@ else {
 			<script src="assets/js/skel-viewport.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/looper.min.js"></script>
 			<script src="assets/js/main.js"></script>
-
 	</body>
 </html>
