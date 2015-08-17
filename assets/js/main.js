@@ -167,7 +167,6 @@
 				// Nav + Jumplinks.
 					$nav_links.add($jumplinks).click(function(e) {
 						var t = $(this), href = t.attr('href'), id;
-
 						if (href.substring(0,1) == '#') {
 
 							e.preventDefault();
@@ -179,6 +178,33 @@
 								panels[id]._activate();
 
 						}
+
+						// Pause all youtube videos [CG]  DOESN'T WORK
+						/*
+						$('.youtube').each(function(i) {
+							console.log("TEST i=" + i);  // TEST
+							var iframe = $( this ).get();
+							console.log("TEST iframe = " + iframe);  // TEST
+
+							// contentWindow only avail on FF ??
+							console.log("TEST contentWindow = " + iframe.contentWindow);  // TEST (undefined)
+							console.log("TEST contentDocument = " + iframe.contentDocument);  // TEST (undefined)
+							// I think this isn't working due to the same-origin policy?
+
+							if (iframe.contentWindow && iframe.contentWindow.postMessage) {
+								console.log("TEST pause video");  // TEST
+							  // iframe.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+						  }
+						});
+						// */
+						/*
+						// not working due to YouTube forcing https (even when http) which won't work
+						// when my server is http
+						var iframe = window.frames[0];
+						console.log("TEST iframe = " + iframe);  // TEST
+						console.log("TEST contentWindow = " + iframe.contentWindow);  // TEST (undefined)
+						console.log("TEST contentDocument = " + iframe.contentDocument);  // TEST (undefined)
+						// */
 
 					});
 
