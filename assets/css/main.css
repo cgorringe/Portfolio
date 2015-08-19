@@ -843,6 +843,15 @@
     white-space: pre;
 	}
 
+	/* centered */
+	div.centered {
+		text-align:center;
+	}
+	div.centered > * {
+		margin-left:auto;
+		margin-right:auto;
+	}
+
 	/* screenshots */
 
 	div.screenshots {
