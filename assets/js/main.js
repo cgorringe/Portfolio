@@ -27,7 +27,6 @@
 
 	var $window = $(window);
 
-	// $window.on('load', function() {
 	$(document).ready(function() {  // this speeded up initial load [CG]
 
 		skel
@@ -176,79 +175,9 @@
 							id = href.substring(1);
 
 							if (id in panels) {
-								/*
-								// NOT USED - REMOVE
-								if (id === 'customcut') {  // TEST
-									$('#customcut').load("index_details.html #customcut", function() {
-	  								alert( "customcut Loaded" );
-										panels[id]._activate();
-	  							});
-								}
-								else {
-								}
-								// */
-
-								/*
-								// NOT USED - REMOVE
-								// I'm thinking I should do a different approach.
-								// Perhaps stick with keeping all of the html in the original document,
-								// but instead load images/video at a later time to speed up overall page load.
-
-								if (id === 'portfolio') {
-									if ( $('#customcut').length == 0 ) {
-										// load details if #customcut doesn't exist
-										console.log("loading details...");
-										$.get( "index_details.html", function( data ) {
-											// alert( "Loaded details" );
-											$('#main').append(data);
-											console.log("finished loading");
-										});
-									}
-								}
-								// */
-
 								panels[id]._activate();
 							}
-							else {  
-								// NOT USED - REMOVE
-								// new [CG]
-								// panel id doesn't exist yet, so load it
-								/*
-								$('#details').load("index_details.html", function() {
-  								alert( "Details Loaded" );
-  							});
-								// */
-								// TODO: this is not finished!
-							}
 						}
-
-						// Pause all youtube videos [CG]  DOESN'T WORK
-						/*
-						$('.youtube').each(function(i) {
-							console.log("TEST i=" + i);  // TEST
-							var iframe = $( this ).get();
-							console.log("TEST iframe = " + iframe);  // TEST
-
-							// contentWindow only avail on FF ??
-							console.log("TEST contentWindow = " + iframe.contentWindow);  // TEST (undefined)
-							console.log("TEST contentDocument = " + iframe.contentDocument);  // TEST (undefined)
-							// I think this isn't working due to the same-origin policy?
-
-							if (iframe.contentWindow && iframe.contentWindow.postMessage) {
-								console.log("TEST pause video");  // TEST
-							  // iframe.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-						  }
-						});
-						// */
-						/*
-						// not working due to YouTube forcing https (even when http) which won't work
-						// when my server is http
-						var iframe = window.frames[0];
-						console.log("TEST iframe = " + iframe);  // TEST
-						console.log("TEST contentWindow = " + iframe.contentWindow);  // TEST (undefined)
-						console.log("TEST contentDocument = " + iframe.contentDocument);  // TEST (undefined)
-						// */
-
 					});
 
 				// Window.
