@@ -111,6 +111,14 @@
 								$nav_links.removeClass('active');
 								$nav_links.filter('[href="#' + id + '"]').addClass('active');
 
+							// Change folder icon to open folder and back [CG]
+								if (id == 'portfolio') {
+									$nav_links.filter('[href="#portfolio"]').removeClass('fa-folder').addClass('fa-folder-open');
+								}
+								else {
+									$nav_links.filter('[href="#portfolio"]').removeClass('fa-folder-open').addClass('fa-folder');
+								}
+
 							// Change hash.
 								if (i == 0)
 									window.location.hash = '#';
