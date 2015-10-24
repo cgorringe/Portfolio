@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title id="path1"></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="/assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+    <!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie8.css" /><![endif]-->
+
+ <script>
+  String.prototype.rtrim = function() {
+    return this.replace(/\s\s*$/, '');
+  }
+
+  function writePaths() {
+    var pname = location.pathname;
+    document.getElementById("path1").innerHTML = pname;
+    // document.getElementById("path2").innerHTML = pname;
+
+    var bcrumbs = "", temp = "", url = "";
+    var plist = pname.split('/');
+
+    for (var i=0; i < plist.length; i++) {
+      if (plist[i].rtrim() != '') {
+        url += temp + '/';
+        bcrumbs += '<a href="' + url + '">' + temp + '</a> / ';
+        temp = plist[i];
+      }
+    }
+    //bcrumbs += "&gt; <b>pub</b>";
+    bcrumbs += "<strong>" + temp + "</strong>"
+    document.getElementById("path3").innerHTML = bcrumbs;
+  }
+ </script>
+
+  </head>
+  <body>
+
+    <!-- Wrapper-->
+      <div id="wrapper" style="padding-top:84px"> <!-- TODO: fix padding-top for mobile -->
+
+        <!-- Nav -->
+          <nav id="nav">
+            <a href="/#me" class="icon fa-home"><span>Home</span></a>
+            <a href="/#portfolio" class="icon fa-folder"><span>Portfolio</span></a>
+            <a href="/apps/" class="icon fa-mobile"><span>Apps</span></a>
+            <a href="/#contact" class="icon fa-envelope"><span>Contact</span></a>
+          </nav>
+
+        <!-- Main -->
+          <div id="main">
+
+            <!-- Apps -->
+              <article id="pub" class="panel">
+                <header>
+                  <div class="row" style="position:relative;">
+                    <div class="12u">
+                      <h3><a href="/">home</a> <span id="path3"></span></h3>
+                    </div>
+                  </div>
+                </header>
+                <hr>
+                <section>
+                  <div class="row">
+                    <div class="12u">
+  <!--#config errmsg="" -->
+  <!--#set var="INCLUDE_URL" value="${REQUEST_URI}include.html" -->
+  <!--#include virtual="$INCLUDE_URL" -->
