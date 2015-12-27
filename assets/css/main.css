@@ -828,13 +828,17 @@
 		-webkit-transition: color .25s ease-in-out;
 		-ms-transition: color .25s ease-in-out;
 		transition: color .25s ease-in-out;
-		/* text-decoration: underline dotted; !important; */ /* not working */
+		text-decoration: none;
+		border-bottom: 1px dotted;
 	}
 		a.link:hover {
 			color: black;
-			/* text-decoration: underline solid; */ /* not working */
+			border-bottom: 1px solid;
 		}
-
+	a.noline {
+		text-decoration: none;
+		border-bottom-width: 0px;
+	}
 	.like-pre {
 		font-style: normal;
 		display: block;
