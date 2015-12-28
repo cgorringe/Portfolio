@@ -205,11 +205,22 @@
 
 						});
 
-					if (skel.vars.IEVersion < 9)
+					if (skel.vars.IEVersion < 9) {
 						$window
 							.on('resize', function() {
 								$wrapper.css('min-height', $window.height());
 							});
+					}
+
+				// Fixes browser back button [CG]
+					$window
+						.on('hashchange', function() {
+							id = window.location.hash.substring(1);
+							if (id == '') { id = 'me'; }  // fixes home page
+							if (id in panels) {
+								panels[id]._activate();
+							}
+						});
 
 				// Fix: Placeholder polyfill.
 					$('form').placeholder();
