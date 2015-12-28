@@ -754,7 +754,7 @@
 		background-size: auto, 100% 100%;
 		font-family: 'Source Sans Pro', sans-serif;
 		font-weight: 300;
-		color: #555;
+		color: #222; /* #555 */
 		background-color: #456;
 	}
 
@@ -772,7 +772,7 @@
 	input, textarea, select {
 		font-family: 'Source Sans Pro', sans-serif;
 		font-weight: 300;
-		color: #555;
+		color: #222;  /* */
 	}
 
 	strong, b, h1, h2, h3, h4 {
@@ -782,10 +782,12 @@
 	h5 { color: #363636; }
 
 	blockquote {
-		border-left: solid 0.5em #ddd;
-		padding: 0.5em 0 0.5em 2em;
+		/* border-left: solid 0.5em #ddd; */
+		/* padding: 0.5em 0 0.5em 2em; */
+		padding: 0.5em 0 0.5em 0;
 		font-style: italic;
 		margin-bottom: 0.5em;
+		line-height: 1.1em;
 	}
 
 	em, i {
@@ -823,7 +825,7 @@
 
 	/* regular links */
 	a.link {
-		color: #555;
+		color: #222;  /* #555 */
 		-moz-transition: color .25s ease-in-out;
 		-webkit-transition: color .25s ease-in-out;
 		-ms-transition: color .25s ease-in-out;
@@ -1143,6 +1145,11 @@
 				margin: 0 auto;
 				width: auto;
 			}
+
+		/* added [CG] */
+		.image.profile {
+			padding: 0.5em;
+		}
 
 /* Button */
 
