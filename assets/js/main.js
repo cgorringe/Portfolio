@@ -89,10 +89,8 @@
 						panels[id] = t;
 
 						if (i == 0) {
-
 							firstPanelId = id;
 							activePanelId = id;
-
 						}
 						else
 							t.hide();
@@ -125,6 +123,7 @@
 								else
 									window.location.hash = '#' + id;
 
+							// TODO: move this to after retrieving the panel contents? [CG] doesn't do much?
 							// Add bottom padding.
 								var x = parseInt($wrapper.css('padding-top')) +
 										panels[id].outerHeight() +
@@ -135,6 +134,40 @@
 									$wrapper.addClass('tall');
 								else
 									$wrapper.removeClass('tall');
+							
+							// start loading panel here [CG]
+							if (t.hasClass('import')) {
+								var filename = 'panel_' + id + '.html';
+								//t.html('<h2>Importing ' + filename + '</h2>');
+								t.load(filename, function() {
+									console.log('Done loading ' + filename);  // DEBUG
+									
+									// Activate looper images [CG]
+										var tlooper = t.find('.looper');
+										if (tlooper) {
+											//console.log('found looper');
+											tlooper.looper('loop');  // starts the looper
+											tlooper.looper('next');  // shows the first image right away
+										}
+
+									// Reposition.
+										$body._reposition();
+
+									// Resize main to height of new panel.
+										$main.animate({
+											height: panels[id].outerHeight()
+										}, instant ? 0 : settings.resizeSpeed, 'swing', function() {
+
+											// Fade in new active panel.
+												$footer.fadeTo(instant ? 0 : settings.fadeSpeed, 1.0);
+												panels[id].fadeIn(instant ? 0 : settings.fadeSpeed, function() {
+
+													// Unlock.
+														isLocked = false;
+												});
+										});
+								});
+							}  // endif
 
 							// Fade out active panel.
 								$footer.fadeTo(settings.fadeSpeed, 0.0001);
@@ -148,24 +181,29 @@
 												scrollTop: 0
 											}, settings.resizeSpeed, 'swing');
 
-										// Reposition.
-											$body._reposition();
+										// TODO: wait here until new panel loaded? [CG]
+										// this seems to work ok [CG]
+										if (t.hasClass('import') === false) {
+											//console.log('import false');  // DEBUG
 
-										// Resize main to height of new panel.
-											$main.animate({
-												height: panels[activePanelId].outerHeight()
-											}, instant ? 0 : settings.resizeSpeed, 'swing', function() {
+											// Reposition.
+												$body._reposition();
 
-												// Fade in new active panel.
-													$footer.fadeTo(instant ? 0 : settings.fadeSpeed, 1.0);
-													panels[activePanelId].fadeIn(instant ? 0 : settings.fadeSpeed, function() {
+											// Resize main to height of new panel.
+												$main.animate({
+													height: panels[activePanelId].outerHeight()
+												}, instant ? 0 : settings.resizeSpeed, 'swing', function() {
 
-														// Unlock.
-															isLocked = false;
+													// Fade in new active panel.
+														$footer.fadeTo(instant ? 0 : settings.fadeSpeed, 1.0);
+														panels[activePanelId].fadeIn(instant ? 0 : settings.fadeSpeed, function() {
 
-													});
-											});
+															// Unlock.
+																isLocked = false;
 
+														});
+												});
+										}  // end if
 								});
 
 						};
@@ -218,7 +256,7 @@
 							id = window.location.hash.substring(1);
 							if (id == '') { id = 'me'; }  // fixes home page
 							if (id in panels) {
-								panels[id]._activate();
+								panels[id]._activate(false);
 							}
 						});
 
