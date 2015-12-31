@@ -301,23 +301,15 @@
 			var t = $(this);
 			var filename = t.attr('href'), target = t.data('target');
 			//console.log('import ' + filename + ' into ' + target);
-			var t2 = $('#' + target);
-
-			//t2.fadeOut(settings.fadeSpeed, function() {
-				// import into and replace contents of target
-				t2.load(filename, function() {
-					//console.log('Done loading ' + filename);
-
-					//t2.fadeIn(settings.fadeSpeed, function() {
-						// Activate looper
-							var tlooper = $(this).find('.looper');
-							if (tlooper) {
-								tlooper.looper('loop');  // starts the looper
-								tlooper.looper('next');  // shows the first image right away
-							}
-					//});
-				});
-			//});
+			$('#' + target).load(filename, function() {
+				//console.log('Done loading ' + filename);
+				// Activate looper
+					var tlooper = $(this).find('.looper');
+					if (tlooper) {
+						tlooper.looper('loop');  // starts the looper
+						tlooper.looper('next');  // shows the first image right away
+					}
+			});
 		});
 
 	});
