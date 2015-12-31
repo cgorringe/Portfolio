@@ -27,7 +27,7 @@
 
 	var $window = $(window);
 
-	$(document).ready(function() {  // this speeded up initial load [CG]
+	$(document).ready(function() {  // this sped up initial load [CG]
 
 		skel
 			.breakpoints({
@@ -137,13 +137,15 @@
 							
 							// start loading panel here [CG]
 							if (t.hasClass('import')) {
-								var filename = 'panel_' + id + '.html';
+								var filename = t.data('import');  // data-import attr
+								//var filename = t.data('import') + ' #' + id;  // data-import attr
+								//var filename = 'panel_' + id + '.html';
 								//t.html('<h2>Importing ' + filename + '</h2>');
 								t.load(filename, function() {
-									console.log('Done loading ' + filename);  // DEBUG
+									//console.log('Done loading ' + filename);
 									
 									// Activate looper images [CG]
-										var tlooper = t.find('.looper');
+										var tlooper = $(this).find('.looper');
 										if (tlooper) {
 											//console.log('found looper');
 											tlooper.looper('loop');  // starts the looper
@@ -292,6 +294,31 @@
 				}, 50);
 
 			});
+
+		// mobile links to import content [CG]
+		$('a.import').click(function(e) {
+			e.preventDefault();
+			var t = $(this);
+			var filename = t.attr('href'), target = t.data('target');
+			//console.log('import ' + filename + ' into ' + target);
+			var t2 = $('#' + target);
+
+			//t2.fadeOut(settings.fadeSpeed, function() {
+				// import into and replace contents of target
+				t2.load(filename, function() {
+					//console.log('Done loading ' + filename);
+
+					//t2.fadeIn(settings.fadeSpeed, function() {
+						// Activate looper
+							var tlooper = $(this).find('.looper');
+							if (tlooper) {
+								tlooper.looper('loop');  // starts the looper
+								tlooper.looper('next');  // shows the first image right away
+							}
+					//});
+				});
+			//});
+		});
 
 	});
 
