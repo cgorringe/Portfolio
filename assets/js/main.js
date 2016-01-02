@@ -137,15 +137,17 @@
 							
 							// start loading panel here [CG]
 							if (t.hasClass('import')) {
-								var filename = t.data('import');  // data-import attr
-								//var filename = t.data('import') + ' #' + id;  // data-import attr
-								//var filename = 'panel_' + id + '.html';
-								//t.html('<h2>Importing ' + filename + '</h2>');
-								t.load(filename, function() {
-									//console.log('Done loading ' + filename);
+								var url = t.data('import');  // data-import attr
+								//var url = t.data('import') + ' #' + id;  // data-import attr
+								//t.html('<h2>Importing ' + url + '</h2>');
+
+								$.get(url, function(data) {  // new version
+									t.html( $('<div>').append( $.parseHTML(data) ).find('#'+id).html() );
+								//t.load(url, function() {  // old version
+									//console.log('Done loading ' + url);
 									
 									// Activate looper images [CG]
-										var tlooper = $(this).find('.looper');
+										var tlooper = t.find('.looper');
 										if (tlooper) {
 											//console.log('found looper');
 											tlooper.looper('loop');  // starts the looper
@@ -299,12 +301,15 @@
 		$('a.import').click(function(e) {
 			e.preventDefault();
 			var t = $(this);
-			var filename = t.attr('href'), target = t.data('target');
-			//console.log('import ' + filename + ' into ' + target);
-			$('#' + target).load(filename, function() {
-				//console.log('Done loading ' + filename);
+			var url = t.attr('href'), id = t.data('target');
+			//console.log('import ' + url + ' into #' + id);
+
+			$.get(url, function(data) {  // new version
+				$('#' + id).html( $('<div>').append( $.parseHTML(data) ).find('#'+id).html() );
+			//$('#' + id).load(url, function() {  // old version
+				//console.log('Done loading ' + url);
 				// Activate looper
-					var tlooper = $(this).find('.looper');
+					var tlooper = $('#' + id).find('.looper');
 					if (tlooper) {
 						tlooper.looper('loop');  // starts the looper
 						tlooper.looper('next');  // shows the first image right away
