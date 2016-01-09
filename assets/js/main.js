@@ -92,15 +92,22 @@
 							firstPanelId = id;
 							activePanelId = id;
 						}
-						else
+						else {
 							t.hide();
+						}
 
 						t._activate = function(instant) {
 
 							// Check lock state and determine whether we're already at the target.
-								if (isLocked
-								||	activePanelId == id)
+								// if (isLocked || activePanelId == id) {
+								if (isLocked) {
+									console.log('isLocked');  // DEBUG
 									return false;
+								}
+								if (activePanelId == id) {
+									console.log('activePaneId == id');  // DEBUG
+									return false;
+								}
 
 							// Lock.
 								isLocked = true;
@@ -142,7 +149,8 @@
 								//t.html('<h2>Importing ' + url + '</h2>');
 
 								$.get(url, function(data) {  // new version
-									t.html( $('<div>').append( $.parseHTML(data) ).find('#'+id).html() );
+									//t.html( $('<div>').append( $.parseHTML(data) ).find('#'+id).html() );  // strips scripts
+									t.html( $('<div>').append( data ).find('#'+id).html() );  // runs scripts
 								//t.load(url, function() {  // old version
 									//console.log('Done loading ' + url);
 									
@@ -155,12 +163,17 @@
 										}
 
 									// Reposition.
+										console.log('body reposition #1'); // DEBUG
 										$body._reposition();
 
 									// Resize main to height of new panel.
+									// FIXME: doesn't resize from small->larger height (but will go large->smaller)
+										console.log('start animate: id = ' + id + ' outerHeight = ' + panels[id].outerHeight()); // DEBUG
+										console.log('height = ' + panels[id].height());  // DEBUG
 										$main.animate({
 											height: panels[id].outerHeight()
 										}, instant ? 0 : settings.resizeSpeed, 'swing', function() {
+											console.log('main animate height #1'); // DEBUG
 
 											// Fade in new active panel.
 												$footer.fadeTo(instant ? 0 : settings.fadeSpeed, 1.0);
@@ -176,6 +189,9 @@
 							// Fade out active panel.
 								$footer.fadeTo(settings.fadeSpeed, 0.0001);
 								panels[activePanelId].fadeOut(instant ? 0 : settings.fadeSpeed, function() {
+									
+									// make old active panel really large, then shrink (doesn't work)
+									//panels[activePanelId].outerHeight(1000);  // TEST  (REMOVE)
 
 									// Set new active.
 										activePanelId = id;
@@ -191,12 +207,16 @@
 											//console.log('import false');  // DEBUG
 
 											// Reposition.
+												console.log('body reposition #2'); // DEBUG
 												$body._reposition();
 
 											// Resize main to height of new panel.
+												console.log('start animate: id = ' + id + ' outerHeight = ' + panels[id].outerHeight()); // DEBUG
+												console.log('height = ' + panels[id].height());  // DEBUG
 												$main.animate({
 													height: panels[activePanelId].outerHeight()
 												}, instant ? 0 : settings.resizeSpeed, 'swing', function() {
+													console.log('main animate height #2'); // DEBUG
 
 													// Fade in new active panel.
 														$footer.fadeTo(instant ? 0 : settings.fadeSpeed, 1.0);
@@ -258,7 +278,7 @@
 					$window
 						.on('hashchange', function() {
 							id = window.location.hash.substring(1);
-							if (id == '') { id = 'me'; }  // fixes home page
+							if (id == '') { id = firstPanelId; }  // fixes home panel
 							if (id in panels) {
 								panels[id]._activate(false);
 							}
@@ -305,7 +325,8 @@
 			//console.log('import ' + url + ' into #' + id);
 
 			$.get(url, function(data) {  // new version
-				$('#' + id).html( $('<div>').append( $.parseHTML(data) ).find('#'+id).html() );
+				//$('#' + id).html( $('<div>').append( $.parseHTML(data) ).find('#'+id).html() );  // strips scripts
+				$('#' + id).html( $('<div>').append( data ).find('#'+id).html() );  // runs scripts
 			//$('#' + id).load(url, function() {  // old version
 				//console.log('Done loading ' + url);
 				// Activate looper
