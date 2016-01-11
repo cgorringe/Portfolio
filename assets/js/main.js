@@ -195,16 +195,22 @@
 									// make old active panel really large, then shrink (doesn't work)
 									//panels[activePanelId].outerHeight(1000);  // TEST  (REMOVE)
 
+									// Clear contents of old active panel if it's imported.
+									// this should stop any videos playing
+										if (panels[activePanelId].hasClass('import')) {
+											panels[activePanelId].html('');
+										}
+
 									// Set new active.
 										activePanelId = id;
 
-										// Force scroll to top.
-											$hbw.animate({
-												scrollTop: 0
-											}, settings.resizeSpeed, 'swing');
+									// Force scroll to top.
+										$hbw.animate({
+											scrollTop: 0
+										}, settings.resizeSpeed, 'swing');
 
-										// TODO: wait here until new panel loaded? [CG]
-										// this seems to work ok [CG]
+									// TODO: wait here until new panel loaded? [CG]
+									// this seems to work ok [CG]
 										if (t.hasClass('import') === false) {
 											//console.log('import false');  // DEBUG
 
