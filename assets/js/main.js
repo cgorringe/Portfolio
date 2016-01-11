@@ -27,7 +27,8 @@
 
 	var $window = $(window);
 
-	$(document).ready(function() {  // this sped up initial load [CG]
+	$window.on('load', function() {  // original slower load
+	//$(document).ready(function() {  // this speeds up initial load, but breaks resizing main [CG]
 
 		skel
 			.breakpoints({
@@ -99,15 +100,15 @@
 						t._activate = function(instant) {
 
 							// Check lock state and determine whether we're already at the target.
-								// if (isLocked || activePanelId == id) {
-								if (isLocked) {
-									console.log('isLocked');  // DEBUG
+								if (isLocked || activePanelId == id) {
+								//if (isLocked) {
+									//console.log('isLocked');  // DEBUG
 									return false;
 								}
-								if (activePanelId == id) {
-									console.log('activePaneId == id');  // DEBUG
-									return false;
-								}
+								//if (activePanelId == id) {
+								//	console.log('activePaneId == id');  // DEBUG
+								//	return false;
+								//}
 
 							// Lock.
 								isLocked = true;
@@ -163,22 +164,23 @@
 										}
 
 									// Reposition.
-										console.log('body reposition #1'); // DEBUG
+										//console.log('body reposition #1'); // DEBUG
 										$body._reposition();
 
 									// Resize main to height of new panel.
 									// FIXME: doesn't resize from small->larger height (but will go large->smaller)
-										console.log('start animate: id = ' + id + ' outerHeight = ' + panels[id].outerHeight()); // DEBUG
-										console.log('height = ' + panels[id].height());  // DEBUG
+									// (fixed by reverting back to window on load instead of doc ready on init)
+										//console.log('before animate: id = ' + id + ' outerHeight = ' + panels[id].outerHeight()); // DEBUG
+										//console.log('height = ' + panels[id].height());  // DEBUG
+										
 										$main.animate({
 											height: panels[id].outerHeight()
 										}, instant ? 0 : settings.resizeSpeed, 'swing', function() {
-											console.log('main animate height #1'); // DEBUG
+											//console.log('main animate height #1'); // DEBUG
 
 											// Fade in new active panel.
 												$footer.fadeTo(instant ? 0 : settings.fadeSpeed, 1.0);
 												panels[id].fadeIn(instant ? 0 : settings.fadeSpeed, function() {
-
 													// Unlock.
 														isLocked = false;
 												});
@@ -207,16 +209,16 @@
 											//console.log('import false');  // DEBUG
 
 											// Reposition.
-												console.log('body reposition #2'); // DEBUG
+												//console.log('body reposition #2'); // DEBUG
 												$body._reposition();
 
 											// Resize main to height of new panel.
-												console.log('start animate: id = ' + id + ' outerHeight = ' + panels[id].outerHeight()); // DEBUG
-												console.log('height = ' + panels[id].height());  // DEBUG
+												//console.log('start animate: id = ' + id + ' outerHeight = ' + panels[id].outerHeight()); // DEBUG
+												//console.log('height = ' + panels[id].height());  // DEBUG
 												$main.animate({
 													height: panels[activePanelId].outerHeight()
 												}, instant ? 0 : settings.resizeSpeed, 'swing', function() {
-													console.log('main animate height #2'); // DEBUG
+													//console.log('main animate height #2'); // DEBUG
 
 													// Fade in new active panel.
 														$footer.fadeTo(instant ? 0 : settings.fadeSpeed, 1.0);
