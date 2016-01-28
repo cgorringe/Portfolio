@@ -27,8 +27,9 @@
 
 	var $window = $(window);
 
-	$window.on('load', function() {  // original slower load
-	//$(document).ready(function() {  // this speeds up initial load, but breaks resizing main [CG]
+	//$window.on('load', function() {  // original slower load
+	$(document).ready(function() {  // this speeds up initial load, but breaks resizing main [CG]
+	// FIXME: resizing main not fixed in Firefox!
 
 		skel
 			.breakpoints({
