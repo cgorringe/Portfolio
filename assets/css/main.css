@@ -925,6 +925,47 @@
 		padding-top: 13px;
 	}
 
+	div.iPhone4.landscape {
+		position:relative;
+		width: 368px;
+		height: 194px;
+		margin-top: 1em;
+		margin-bottom: 1em;
+		display: block;
+		outline: 0;
+	}
+	div.iPhone4.landscape > * {
+		position:absolute; 
+		left:65px;
+		top:18px;
+		width:240px;
+		height:160px;
+	}
+	div.iPhone4.landscape.black {
+		background-image: url("images/iPhone4_bl_368x194.png");
+	}
+
+	div.iPhone4med.landscape {
+		position:relative;
+		width: 553px;
+		height: 291px;
+		margin-top: 1em;
+		margin-bottom: 1em;
+		display: block;
+		outline: 0;
+		/* -webkit-transform: scale(0.65); transform-origin:0 0; */  /* TEST for mobile only */
+	}
+	div.iPhone4med.landscape > * {
+		position:absolute; 
+		left:98px;
+		top:26px;
+		width:360px;
+		height:240px;
+	}
+	div.iPhone4med.landscape.black {
+		background-image: url("images/iPhone4_bl_553x291.png");
+	}
+
 	div.iPhone1.portrait {
 		background-image: url("images/iPhone1_190x362.png");
 		position:relative;
