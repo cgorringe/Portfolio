@@ -1547,6 +1547,21 @@
 
 	@media screen and (min-width: 737px) {
 
+		/* Custom Heights [CG] */
+		#lines > section {
+			height: 902px;
+		}
+		#apps > section:first-child {
+			height:572px;
+		}
+		#apps > section:first-child + section {
+			height:567px;
+		}
+		#apple2 > section {
+			height:937px;
+		}
+
+
 		/* Basic */
 
 			html {
