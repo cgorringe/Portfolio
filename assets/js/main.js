@@ -169,8 +169,8 @@
 										$body._reposition();
 
 									// Resize main to height of new panel.
-									// FIXME: doesn't resize from small->larger height (but will go large->smaller)
-									// (fixed by reverting back to window on load instead of doc ready on init)
+									// BUG: doesn't resize from small->larger height (but will go large->smaller)
+									// FIX: set explicit height in section tags
 										//console.log('before animate: id = ' + id + ' outerHeight = ' + panels[id].outerHeight()); // DEBUG
 										//console.log('height = ' + panels[id].height());  // DEBUG
 										
