@@ -2,25 +2,30 @@
  * Lines.js
  * Copyright (c) 2016 Carl Gorringe
  * http://carl.gorringe.org/
+ * https://github.com/cgorringe/LinesJS
  **/
 
 var LinesJS = (function () {
 
 	// private vars
-	var my = {}, canvas, bgColor, ctx, timer, ready = false,
+	var my = {}, canvas, bgColor, ctx, timer, ready = false, 
 			// line positions
 			lx1, ly1, lx2, ly2, idx,
 			// skip values
 			sx1, sy1, sx2, sy2,
 			// line colors
 			oldR, oldG, oldB, newR, newG, newB,
-			skpR, skpG, skpB, curR, curG, curB, colCount = 0;
+			skpR, skpG, skpB, curR, curG, curB, colCount = 0,
+			// fullscreen
+			fullmode = false, bu = {};
 
 	// public vars
 	my.skipMin =  5;
 	my.skipMax = 15;
 	my.numLines = 30;
 	my.timeInterval = 50;
+	my.lineWidth = 1;
+	my.lineWidthFS = 2;
 
 	// private methods
 	function randInt(min, max) {
@@ -37,7 +42,8 @@ var LinesJS = (function () {
 		bgColor = window.getComputedStyle(canvas, null).getPropertyValue('background-color');
 		ctx = canvas.getContext('2d');
 		//ctx.translate(0.5, 0.5);  // doesn't really improve anything
-		ctx.imageSmoothingEnabled = false;  // doesn't do much
+		//ctx.imageSmoothingEnabled = false;  // doesn't do much
+		ctx.imageSmoothingEnabled = true;
 		lx1 = new Array(my.numLines);
 		ly1 = new Array(my.numLines);
 		lx2 = new Array(my.numLines);
@@ -132,9 +138,8 @@ var LinesJS = (function () {
 	my.drawNextLine = function () {
 		if (ctx) {
 			my.nextLine();
-			//ctx.strokeStyle = '#f0f'; // TODO: color
 			ctx.strokeStyle = my.nextColor();
-			ctx.lineWidth = 1;
+			ctx.lineWidth = my.lineWidth;
 			my.drawFourLines(lx1[idx], ly1[idx], lx2[idx], ly2[idx]);
 		}
 	};
@@ -144,7 +149,7 @@ var LinesJS = (function () {
 			var last_idx = idx + 1;
 			if (last_idx >= my.numLines) { last_idx = 0; }
 			ctx.strokeStyle = bgColor;
-			ctx.lineWidth = 2;
+			ctx.lineWidth = my.lineWidth + 1;
 			my.drawFourLines(lx1[last_idx], ly1[last_idx], lx2[last_idx], ly2[last_idx]);
 		}
 	};
@@ -166,6 +171,65 @@ var LinesJS = (function () {
 	my.stop = function () {
 		if (timer) {
 			clearTimeout(timer);
+		}
+	};
+
+	my.fullscreen = function () {
+		if (canvas) {
+			if (canvas.requestFullscreen) {
+				canvas.requestFullscreen();
+				document.addEventListener("fullscreenchange", my.fullscreenchange, false);
+			} else if (canvas.msRequestFullscreen) {
+				canvas.msRequestFullscreen();
+				document.addEventListener("msfullscreenchange", my.fullscreenchange, false);
+			} else if (canvas.mozRequestFullScreen) {
+				canvas.mozRequestFullScreen();
+				document.addEventListener("mozfullscreenchange", my.fullscreenchange, false);
+			} else if (canvas.webkitRequestFullscreen) {
+				canvas.webkitRequestFullscreen();
+				document.addEventListener("webkitfullscreenchange", my.fullscreenchange, false);
+			}
+		}
+	};
+
+	// called when entering and exiting full screen
+	my.fullscreenchange = function () {
+		if (fullmode == false) {
+			// entering fullscreen
+			fullmode = true;
+			// backup canvas
+			bu.width = ctx.canvas.width;
+			bu.height = ctx.canvas.height;
+			bu.skipMin = my.skipMin;
+			bu.skipMax = my.skipMax;
+			bu.lineWidth = my.lineWidth;
+			// resize canvas to fullscreen
+			var winW = window.innerWidth, winH = window.innerHeight;
+			canvas.style.width = winW + 'px';
+			canvas.style.height = winH + 'px';
+			ctx.canvas.width = winW;
+			ctx.canvas.height = winH;
+			my.skipMin = Math.floor(winW / 160); // 160
+			my.skipMax = Math.floor(winW / 60);  // 40
+			my.lineWidth = my.lineWidthFS;
+			// restart lines
+			my.clear();
+			my.resetLine();
+		}
+		else {
+			// exiting fullscreen
+			fullmode = false;
+			// restore canvas
+			canvas.style.width = bu.width + 'px';
+			canvas.style.height = bu.height + 'px';
+			ctx.canvas.width = bu.width;
+			ctx.canvas.height = bu.height;
+			my.skipMin = bu.skipMin;
+			my.skipMax = bu.skipMax;
+			my.lineWidth = bu.lineWidth;
+			// restart lines
+			my.clear();
+			my.resetLine();
 		}
 	};
 
