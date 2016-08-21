@@ -1268,7 +1268,7 @@
 	ul.frameworks {
 		list-style: none;
 		padding-left: 0.5em;
-		margin-bottom: 1em;
+		margin-bottom: 0.5em;
 	}
 
 		ul.frameworks li {
@@ -1288,6 +1288,17 @@
 			padding-right:1em;
 		}
 
+	ul.verify {
+		list-style: none;
+		padding-left: 1em;
+		margin-bottom: 0.5em;
+	}
+		ul.verify li {
+			display: inline-block;
+			font-size: 0.8em;
+			line-height: 1.2em;
+			font-style: italic;
+		}
 
 	ul.actions li {
 		display: inline-block;
@@ -1484,6 +1495,7 @@
 	#main {
 		position: relative;
 		overflow: hidden;
+		border-radius: 5px;
 	}
 
 	.panel {

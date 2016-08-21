@@ -62,11 +62,9 @@
 					hash = window.location.hash.substring(1);
 
 				if (skel.vars.touch) {
-
 					settings.fadeSpeed = 0;
 					settings.resizeSpeed = 0;
 					$nav_links.find('span').remove();
-
 				}
 
 				// Body.
@@ -78,16 +76,17 @@
 					};
 
 					$body._reposition = function() {
-						if (skel.vars.touch && (window.orientation == 0 || window.orientation == 180))
+						if (skel.vars.touch && (window.orientation == 0 || window.orientation == 180)) {
 							$wrapper.css('padding-top', Math.max((($window.height() - (panels[activePanelId].outerHeight() + $footer.outerHeight())) / 2) - $nav.height(), 30) + 'px');
-						else
+						} 
+						else {
 							$wrapper.css('padding-top', ((($window.height() - panels[firstPanelId].height()) / 2) - $nav.height()) + 'px');
+						}
 					};
 
 				// Panels.
 					$panels.each(function(i) {
 						var t = $(this), id = t.attr('id');
-
 						panels[id] = t;
 
 						if (i == 0) {
@@ -99,7 +98,6 @@
 						}
 
 						t._activate = function(instant) {
-
 							// Check lock state and determine whether we're already at the target.
 								if (isLocked || activePanelId == id) {
 								//if (isLocked) {
@@ -127,10 +125,12 @@
 								}
 
 							// Change hash.
-								if (i == 0)
+								if (i == 0) {
 									window.location.hash = '#';
-								else
+								} 
+								else {
 									window.location.hash = '#' + id;
+								}
 
 							// TODO: move this to after retrieving the panel contents? [CG] doesn't do much?
 							// Add bottom padding.
@@ -139,10 +139,12 @@
 										$nav.outerHeight() +
 										$footer.outerHeight();
 
-								if (x > $window.height())
+								if (x > $window.height()) {
 									$wrapper.addClass('tall');
-								else
+								}
+								else {
 									$wrapper.removeClass('tall');
+								}
 							
 							// start loading panel here [CG]
 							if (t.hasClass('import')) {
@@ -245,14 +247,13 @@
 
 				// Nav + Jumplinks.
 					$nav_links.add($jumplinks).click(function(e) {
-						var t = $(this), href = t.attr('href'), id;
+						var t = $(this), href = document.baseURI + t.attr('href'), id;
 						if (href.substring(0,1) == '#') {
 
 							e.preventDefault();
 							e.stopPropagation();
 
 							id = href.substring(1);
-
 							if (id in panels) {
 								panels[id]._activate();
 							}
@@ -262,18 +263,16 @@
 				// Window.
 					$window
 						.resize(function() {
-
-							if (!isLocked)
+							if (!isLocked) {
 								$body._resize();
-
+							}
 						});
 
 					$window
 						.on('orientationchange', function() {
-
-							if (!isLocked)
+							if (!isLocked) {
 								$body._reposition();
-
+							}
 						});
 
 					if (skel.vars.IEVersion < 9) {
@@ -305,16 +304,15 @@
 					});
 
 				// CSS polyfills (IE<9).
-					if (skel.vars.IEVersion < 9)
+					if (skel.vars.IEVersion < 9) {
 						$(':last-child').addClass('last-child');
-
+					}
 				// Init.
 					$window
 						.trigger('resize');
-
-					if (hash && hash in panels)
+					if (hash && hash in panels) {
 						panels[hash]._activate(true);
-
+					}
 					$wrapper.fadeTo(400, 1.0);
 
 			})
