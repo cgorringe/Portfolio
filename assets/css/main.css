@@ -848,7 +848,7 @@
 		transition: top .2s ease-in-out;
 		top: 0;
 		position: relative;
-		display: block;
+		/* display: block; */
 	}
 		a.animate:hover {
 			top: -5px;
@@ -898,6 +898,26 @@
 		border: none;
 	}
 
+	div.iPhone6-8u.landscape {
+		position:relative;
+		width: 520px;
+		height: 255px;
+		margin-top: 1em;
+		margin-bottom: 1em;
+		display: block;
+		outline: 0;
+	}
+	div.iPhone6-8u.landscape > * {
+		position:absolute; 
+		left:64px;
+		top:17px;
+		width:393px;
+		height:221px;
+	}
+	div.iPhone6-8u.landscape.black {
+		background-image: url("images/iPhone6_bl_520x255.png");
+	}
+
 	div.iPhone5S.portrait {
 		position:relative;
 		width: 215px;
@@ -923,6 +943,29 @@
 	}
 	div.iPhone5S.portrait.statusbar > * {
 		padding-top: 13px;
+	}
+
+	div.iPhone5S.landscape {
+		position:relative;
+		width: 455px;
+		height: 215px;
+		margin-top: 1em;
+		margin-bottom: 1em;
+		display: block;
+		outline: 0;
+	}
+	div.iPhone5S.landscape > * {
+		position:absolute; 
+		left:66px;
+		top:18px;
+		width:322px;
+		height:181px;
+	}
+	div.iPhone5S.landscape.white {
+		background-image: url("images/iPhone5s_wl_455x215.png");
+	}
+	div.iPhone5S.landscape.black {
+		background-image: url("images/iPhone5s_bl_455x215.png");
 	}
 
 	div.iPhone4.landscape {
@@ -1600,9 +1643,13 @@
 				letter-spacing: -0.015em;
 			}
 
-			h4, h5, h6 {
+			h4, h5 {
 				font-size: 1.0em;
 				letter-spacing: -0.015em;
+			}
+
+			h6 {
+				font-size: 0.8em;
 			}
 
 		/* Section/Article */
@@ -1897,9 +1944,13 @@
 				letter-spacing: -0.025em;
 			}
 
-			h4, h5, h6 {
+			h4, h5 {
 				font-size: 1.0em;
 				letter-spacing: -0.025em;
+			}
+
+			h6 {
+				font-size: 0.8em;
 			}
 
 		/* Section/Article */
