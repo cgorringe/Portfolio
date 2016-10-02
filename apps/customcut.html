@@ -52,13 +52,27 @@
 											</p>
 											<h5>App Store Screenshots</h5>
 											<div class="screenshots">
-												<iframe src="apps/customcut_frame.html" class="screenshots" frameborder="0"></iframe>
+												<div style="width:1448px">
+													<a href="images/large/ss_customcut1_large.jpg" class="ss-gallery"><img src="images/ss_customcut1.jpg" alt="1"></a>
+													<a href="images/large/ss_customcut2_large.jpg" class="ss-gallery"><img src="images/ss_customcut2.jpg" alt="2"></a>
+													<a href="images/large/ss_customcut3_large.jpg" class="ss-gallery"><img src="images/ss_customcut3.jpg" alt="3"></a>
+													<a href="images/large/ss_customcut4_large.jpg" class="ss-gallery"><img src="images/ss_customcut4.jpg" alt="4"></a>
+													<a href="images/large/ss_customcut5_large.jpg" class="ss-gallery"><img src="images/ss_customcut5.jpg" alt="5"></a>
+													<a href="images/large/ss_customcut6_large.jpg" class="ss-gallery"><img src="images/ss_customcut6.jpg" alt="6"></a>
+													<a href="images/large/ss_customcut7_large.jpg" class="ss-gallery"><img src="images/ss_customcut7.jpg" alt="7"></a>
+													<a href="images/large/ss_customcut8_large.jpg" class="ss-gallery"><img src="images/ss_customcut8.jpg" alt="8"></a>
+												</div>
 											</div>
 										</div>
 									</div>
 								</section>
 								<script>
 									$('.youtube-popup').magnificPopup({ type: 'iframe' });
+									$('.ss-gallery').magnificPopup({ 
+										type: 'image',
+										gallery:{ enabled:true }, 
+										zoom: { enabled: true, duration: 300, easing: 'ease-in-out'}
+									})
 								</script>
 							</article>
 

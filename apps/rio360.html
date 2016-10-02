@@ -89,7 +89,13 @@
 											</p>
 											<h5><em>BBC Sport 360</em> on the App Store</h5>
 											<div class="screenshots">
-												<iframe src="apps/rio360_frame.html" class="screenshots" frameborder="0"></iframe>
+												<div style="width:905px">
+													<a href="images/large/ss_rio360_bbc5_large.jpg" class="ss-gallery"><img src="images/ss_rio360_bbc5.jpg" alt=""></a>
+													<a href="images/large/ss_rio360_bbc3_large.jpg" class="ss-gallery"><img src="images/ss_rio360_bbc3.jpg" alt=""></a>
+													<a href="images/large/ss_rio360_bbc2_large.jpg" class="ss-gallery"><img src="images/ss_rio360_bbc2.jpg" alt=""></a>
+													<a href="images/large/ss_rio360_bbc4_large.jpg" class="ss-gallery"><img src="images/ss_rio360_bbc4.jpg" alt=""></a>
+													<a href="images/large/ss_rio360_bbc1_large.jpg" class="ss-gallery"><img src="images/ss_rio360_bbc1.jpg" alt=""></a>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -97,6 +103,11 @@
 								<script>
 									$('.youtube-popup').magnificPopup({ type: 'iframe' });
 									$('.itunes-gallery').magnificPopup({ 
+										type: 'image',
+										gallery:{ enabled:true }, 
+										zoom: { enabled: true, duration: 300, easing: 'ease-in-out'}
+									})
+									$('.ss-gallery').magnificPopup({ 
 										type: 'image',
 										gallery:{ enabled:true }, 
 										zoom: { enabled: true, duration: 300, easing: 'ease-in-out'}
