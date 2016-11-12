@@ -823,18 +823,37 @@
 
 /* New Stuff */
 
+	/* all links */
+	a {
+		/* transition: color .25s ease-in-out; */
+		text-decoration: none;
+		border-bottom: 1px solid transparent;
+		/* border-bottom: 1px dotted; */
+		color: #036;
+	}
+		a:visited {
+			color: #522086;
+		}
+		a:hover {
+			border-bottom: 1px solid;
+		}
+
+	a.jumplink {
+		border-bottom-width: 0px;
+	}
+
+	div.screenshots a {
+		border-bottom-width: 0px;
+	}
+
 	/* regular links */
 	a.link {
-		color: #222;  /* #555 */
-		-moz-transition: color .25s ease-in-out;
-		-webkit-transition: color .25s ease-in-out;
-		-ms-transition: color .25s ease-in-out;
-		transition: color .25s ease-in-out;
+		/* color: #036; */ /* #222 */
 		text-decoration: none;
 		border-bottom: 1px dotted;
 	}
 		a.link:hover {
-			color: black;
+			/* color: black; */
 			border-bottom: 1px solid;
 		}
 	a.noline {
@@ -849,6 +868,7 @@
 		top: 0;
 		position: relative;
 		/* display: block; */
+		border-bottom-width: 0px;
 	}
 		a.animate:hover {
 			top: -5px;
@@ -897,10 +917,10 @@
 		font-size: 0px
 	}
 	iframe.screenshots {  /* no longer used */
-		overflow-x: scroll !important; 
-		overflow-y: hidden !important; 
-		overflow: hidden; 
-		height: 340px; 
+		overflow-x: scroll !important;
+		overflow-y: hidden !important;
+		overflow: hidden;
+		height: 340px;
 		width: 100%;
 		border: none;
 	}
@@ -915,7 +935,7 @@
 		outline: 0;
 	}
 	div.iPhone6-8u.landscape > * {
-		position:absolute; 
+		position:absolute;
 		left:64px;
 		top:17px;
 		width:393px;
@@ -935,8 +955,8 @@
 		outline: 0;
 	}
 	div.iPhone5S.portrait > * {
-		position:absolute; 
-		left:18px; 
+		position:absolute;
+		left:18px;
 		top:66px;
 		width:181px;
 		height:322px;
@@ -962,7 +982,7 @@
 		outline: 0;
 	}
 	div.iPhone5S.landscape > * {
-		position:absolute; 
+		position:absolute;
 		left:66px;
 		top:18px;
 		width:322px;
@@ -985,7 +1005,7 @@
 		outline: 0;
 	}
 	div.iPhone4.landscape > * {
-		position:absolute; 
+		position:absolute;
 		left:65px;
 		top:18px;
 		width:240px;
@@ -1006,7 +1026,7 @@
 		/* -webkit-transform: scale(0.65); transform-origin:0 0; */  /* TEST for mobile only */
 	}
 	div.iPhone4med.landscape > * {
-		position:absolute; 
+		position:absolute;
 		left:98px;
 		top:26px;
 		width:360px;
@@ -1027,8 +1047,8 @@
 		outline: 0;
 	}
 	div.iPhone1.portrait > * {
-		position:absolute; 
-		left:15px; 
+		position:absolute;
+		left:15px;
 		top:73px;
 		width:160px;
 		height:230px;
@@ -1045,7 +1065,7 @@
 		outline: 0;
 	}
 	div.iPad.landscape > * {
-		position:absolute; 
+		position:absolute;
 		left:38px; /* 37 or 38 iframe */
 		top:20px;  /* 21 or 19 iframe */
 		width:285px; /* 286 or 285 iframe */
@@ -1069,7 +1089,7 @@
 		outline: 0;
 	}
 	div.monitor > * {
-		position:absolute; 
+		position:absolute;
 		left:14px;
 		top:13px;
 		width:352px;
@@ -1334,7 +1354,7 @@
 		ul.frameworks li:before {
 			content:"•";
 			font-size:0.75em;
-			vertical-align:top; 
+			vertical-align:top;
 			padding-right:1em;
 		}
 
@@ -1534,6 +1554,7 @@
 		width: 1em;
 		height: 1em;
 		line-height: 0.9em;
+		border-bottom-width: 0px;
 	}
 
 		#nav a.icon:before {
