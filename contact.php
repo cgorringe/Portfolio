@@ -39,6 +39,13 @@ function get_param($param)
 	return $data;
 }
 
+function strip_quotes($text)
+{
+	// Strip quote characters to remove remote code execution vulnerability in mail()
+	$quotes = array("'", '"', '`');
+	return str_replace($quotes, "", $text);
+}
+
 function check_email($addr)
 {
 	// if (preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $addr)) {  // NOT a good match, needs to allow periods!
@@ -51,9 +58,15 @@ function check_email($addr)
 	// if (preg_match("/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/", $addr)) {
 
 	// This should allow periods and is most forgiving
-	if (preg_match("/^\S+@\S+\.\S+$/", $addr)) {
+	//if (preg_match("/^\S+@\S+\.\S+$/", $addr)) {
+	//	return $addr;
+	//}
+
+	// Should be better
+	if (filter_var($addr, FILTER_VALIDATE_EMAIL)) {
 		return $addr;
 	}
+
 	return '';
 }
 
@@ -70,17 +83,17 @@ if (($answer === '54') || ($answer === '42')) {
 		$ok_msg .= '<strong><em>You have correctly entered the Ultimate Answer!</em></strong><br>';
 	}
 
-	$name = get_param('name');
+	$name = strip_quotes( get_param('name') );
 	if ($name === '') {
 		$err_msg .= 'Please include your name.<br> ';
 	}
 
-	$email = check_email( get_param('email') );
+	$email = check_email( strip_quotes( get_param('email') ) );
 	if ($email === '') {
 		$err_msg .= 'Please enter a valid email address.<br> ';
 	}
 
-	$subject = get_param('subject');
+	$subject = strip_quotes( get_param('subject') );
 	if ($subject === '') {
 		$err_msg .= 'Please include a subject.<br> ';
 	}
@@ -103,7 +116,7 @@ Answer: $answer
 $message
 ";
 
-		$to = 'carl@gorringe.org';
+		$to = 'contact123@gorringe.org';
 		$send_contact = mail($to, "[contact form] $subject", $sendtext, $header);
 	
 		if ($send_contact) {
